@@ -7,7 +7,7 @@ class App extends Component {
     render() {
         return (
             <BrowserRouter>
-                <div className="container-fluid">
+                <div className="container-fluid top-margin">
                     <Switch>
                         <Route exact
                                path='/application/schedules/page/'
