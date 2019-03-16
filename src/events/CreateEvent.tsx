@@ -1,13 +1,12 @@
-import {ChangeEvent, Component, FormEvent} from 'react';
-import React from 'react';
-import DatePicker from 'react-datepicker';
+import moment from 'moment';
+import React, {ChangeEvent, Component, FormEvent} from 'react';
+import {DateTimeRow} from '../utils/components/DateTimeRow';
 import {ScheduleEvent} from './services/data';
 import {eventService} from './services/service';
-import moment from 'moment';
 
 interface CreateEventState {
-    start: Date;
-    end: Date;
+    start: moment.Moment;
+    end: moment.Moment;
     title: string;
 }
 
@@ -24,13 +23,11 @@ export class CreateEvent extends Component<any, CreateEventState> {
     }
 
     private freshState(): CreateEventState {
-        const state = {
-            start: new Date(),
-            end: new Date(),
+        return {
+            start: moment(),
+            end: moment().add(1, 'hours'),
             title: ''
         };
-        state.end.setHours(state.end.getHours() + 1);
-        return state;
     }
 
     public async save(formEvent: FormEvent) {
@@ -44,11 +41,11 @@ export class CreateEvent extends Component<any, CreateEventState> {
         this.setState(this.freshState());
     }
 
-    public setStart(date: Date) {
+    public setStart(date: moment.Moment) {
         this.setState({start: date});
     }
 
-    public setEnd(date: Date) {
+    public setEnd(date: moment.Moment) {
         this.setState({end: date});
     }
 
@@ -66,26 +63,12 @@ export class CreateEvent extends Component<any, CreateEventState> {
                 </div>
                 <div className="card-body">
                     <form onSubmit={this.save}>
-                        <div className="row form-group">
-                            <label className="col-md-2">
-                                Start:
-                            </label>
-                            <div className="col-md-4">
-                                <DatePicker onChange={this.setStart}
-                                            selected={this.state.start}
-                                            className="form-control"
-                                            showTimeSelect/>
-                            </div>
-                            <label className="col-md-2">
-                                End:
-                            </label>
-                            <div className="col-md-4">
-                                <DatePicker onChange={this.setEnd}
-                                            selected={this.state.end}
-                                            className="form-control"
-                                            showTimeSelect/>
-                            </div>
-                        </div>
+                        <DateTimeRow title="Start:"
+                                     value={this.state.start}
+                                     onChange={this.setStart}/>
+                        <DateTimeRow title="End:"
+                                     value={this.state.end}
+                                     onChange={this.setEnd}/>
                         <div className="row form-group">
                             <div className="col-md-2">
                                 Title
