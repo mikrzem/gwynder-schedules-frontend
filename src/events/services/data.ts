@@ -1,4 +1,4 @@
-import {BaseData} from '../../utils/data';
+import {BaseData} from '../../utils/services/data';
 
 export interface ScheduleEvent extends BaseData {
 

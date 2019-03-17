@@ -1,6 +1,7 @@
-import {httpClient} from '../../utils/http';
-import {ScheduleEvent} from './data';
+import moment from 'moment';
 import {Subject} from 'rxjs';
+import {httpClient} from '../../utils/services/http';
+import {ScheduleEvent} from './data';
 
 const BASE = 'events';
 const PARAM_FROM = 'from';
@@ -10,14 +11,18 @@ export class ScheduleEventService {
 
     public readonly changes = new Subject();
 
-    public async select(from: Date, to: Date): Promise<ScheduleEvent[]> {
-        const paramFrom = (from || new Date());
-        paramFrom.setHours(0, 0, 0);
-        const paramTo = (to || new Date());
-        paramTo.setHours(23, 59, 59);
+    public async select(from: moment.Moment, to: moment.Moment): Promise<ScheduleEvent[]> {
+        const paramFrom = moment(from || moment())
+            .hour(0)
+            .minute(0)
+            .second(0);
+        const paramTo = moment(to || moment())
+            .hour(23)
+            .minute(59)
+            .second(59);
         return await httpClient.get(BASE)
-            .param(PARAM_FROM, paramFrom.toISOString())
-            .param(PARAM_TO, paramTo.toISOString())
+            .param(PARAM_FROM, paramFrom.format())
+            .param(PARAM_TO, paramTo.format())
             .execute();
     }
 

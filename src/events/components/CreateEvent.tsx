@@ -1,8 +1,8 @@
 import moment from 'moment';
 import React, {ChangeEvent, Component, FormEvent} from 'react';
-import {DateTimeRow} from '../utils/components/DateTimeRow';
-import {ScheduleEvent} from './services/data';
-import {eventService} from './services/service';
+import {DateTimeRow} from '../../utils/components/DateTimeRow';
+import {ScheduleEvent} from '../services/data';
+import {eventService} from '../services/service';
 
 interface CreateEventState {
     start: moment.Moment;
