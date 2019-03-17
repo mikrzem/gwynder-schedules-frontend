@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {CreateEvent} from '../events/components/CreateEvent';
+import {EventsList} from '../events/components/EventsList';
 
 export class HomePage extends Component {
 
@@ -10,7 +11,10 @@ export class HomePage extends Component {
 
     render(): React.ReactNode {
         return (
-            <CreateEvent/>
+            <div>
+                <CreateEvent/>
+                <EventsList/>
+            </div>
         );
     }
 

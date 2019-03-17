@@ -15,11 +15,6 @@ export class CreateEvent extends Component<any, CreateEventState> {
     constructor(props: Readonly<any>) {
         super(props);
         this.state = this.freshState();
-
-        this.save = this.save.bind(this);
-        this.setStart = this.setStart.bind(this);
-        this.setEnd = this.setEnd.bind(this);
-        this.setTitle = this.setTitle.bind(this);
     }
 
     private freshState(): CreateEventState {
@@ -30,7 +25,7 @@ export class CreateEvent extends Component<any, CreateEventState> {
         };
     }
 
-    public async save(formEvent: FormEvent) {
+    public save = async (formEvent: FormEvent) => {
         formEvent.preventDefault();
         const event: ScheduleEvent = {
             StartTime: moment(this.state.start).format(),
@@ -39,19 +34,19 @@ export class CreateEvent extends Component<any, CreateEventState> {
         };
         await eventService.create(event);
         this.setState(this.freshState());
-    }
+    };
 
-    public setStart(date: moment.Moment) {
+    public setStart = (date: moment.Moment) => {
         this.setState({start: date});
-    }
+    };
 
-    public setEnd(date: moment.Moment) {
+    public setEnd = (date: moment.Moment) => {
         this.setState({end: date});
-    }
+    };
 
-    public setTitle(event: ChangeEvent<HTMLInputElement>) {
+    public setTitle = (event: ChangeEvent<HTMLInputElement>) => {
         this.setState({title: event.target.value});
-    }
+    };
 
     render(): React.ReactNode {
         return (
