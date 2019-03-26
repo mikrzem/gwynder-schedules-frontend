@@ -12,8 +12,16 @@ export class HomePage extends Component {
     render(): React.ReactNode {
         return (
             <div>
-                <CreateEvent/>
-                <EventsList/>
+                <div className="row form-group">
+                    <div className="col-md-12">
+                        <CreateEvent/>
+                    </div>
+                </div>
+                <div className="row form-group">
+                    <div className="col-md-12">
+                        <EventsList/>
+                    </div>
+                </div>
             </div>
         );
     }

@@ -1,5 +1,6 @@
 import moment from 'moment';
 import React, {ChangeEvent, Component, FormEvent, ReactNode} from 'react';
+import {Link} from 'react-router-dom';
 import {Subscription} from 'rxjs';
 import {ScheduleEvent} from '../services/data';
 import {eventService} from '../services/service';
@@ -89,6 +90,44 @@ export class EventsList extends Component<any, EventsListState> {
                                 </div>
                             </div>
                         </form>
+                        <table className="table table-bordered table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Start
+                                    </th>
+                                    <th>
+                                        End
+                                    </th>
+                                    <th>
+                                        Title
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {this.state.events.map(event => (
+                                    <tr>
+                                        <td>
+                                            {moment(event.StartTime).format('YYYY-MM-DD HH:mm')}
+                                        </td>
+                                        <td>
+                                            {moment(event.EndTime).format('YYYY-MM-DD HH:mm')}
+                                        </td>
+                                        <td>
+                                            {event.Title}
+                                        </td>
+                                        <td>
+                                            <Link to={'/application/schedules/page/event/' + event.ID}
+                                                  className="btn btn-block btn-primary">
+                                                <span className="fa fa-edit"/>
+                                                Edit
+                                            </Link>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
                     </div>
                 )
             }
