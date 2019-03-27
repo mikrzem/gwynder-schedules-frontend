@@ -4,7 +4,7 @@ import React, {ChangeEvent, Component, ReactNode} from 'react';
 export interface DateTimeRowProps {
 
     title: string;
-    value: moment.Moment;
+    value: moment.Moment | null;
     onChange?: (next: moment.Moment) => void
 
 }
@@ -17,9 +17,9 @@ export class DateTimeRow extends Component<DateTimeRowProps, any> {
             if (this.props.value) {
                 nextDate = nextDate
                     .hour(this.props.value.hour())
-                    .minute(this.props.value.minute())
+                    .minute(this.props.value.minute());
             }
-            this.changeDate(nextDate)
+            this.changeDate(nextDate);
         }
     };
 
@@ -43,16 +43,40 @@ export class DateTimeRow extends Component<DateTimeRowProps, any> {
         }
     };
 
+    get date() {
+        if (this.props.value) {
+            return this.props.value.format('YYYY-MM-DD');
+        } else {
+            return '';
+        }
+    }
+
+    get hour() {
+        if (this.props.value) {
+            return this.props.value.hour();
+        } else {
+            return 0;
+        }
+    }
+
+    get minute() {
+        if (this.props.value) {
+            return this.props.value.minute();
+        } else {
+            return 0;
+        }
+    }
+
     public render(): ReactNode {
         return (
             <div className="row form-group">
-                <div className="col-md-4">
+                <label className="col-md-4">
                     {this.props.title}
-                </div>
+                </label>
                 <div className="col-md-4">
                     <input type="date"
                            className="form-control"
-                           value={this.props.value.format('YYYY-MM-DD')}
+                           value={this.date}
                            onChange={this.dateChange}/>
                 </div>
                 <div className="col-md-4">
@@ -62,19 +86,19 @@ export class DateTimeRow extends Component<DateTimeRowProps, any> {
                                max="23"
                                step="1"
                                className="form-control"
-                               value={this.props.value.hour()}
+                               value={this.hour}
                                onChange={this.hourChange}/>
                         <div className="input-group-addon">
-                           <span className="input-group-text">
-                               :
-                           </span>
+                            <span className="input-group-text">
+                                :
+                            </span>
                         </div>
                         <input type="number"
                                min="0"
                                max="59"
                                step="1"
                                className="form-control"
-                               value={this.props.value.minute()}
+                               value={this.minute}
                                onChange={this.minuteChange}/>
                     </div>
                 </div>

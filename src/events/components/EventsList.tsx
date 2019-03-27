@@ -134,6 +134,10 @@ export class EventsList extends Component<any, EventsListState> {
         </div>;
     }
 
+    public componentWillMount(): void {
+        this.loadEvents();
+    }
+
     public componentWillUnmount(): void {
         if (this.subscription) {
             this.subscription.unsubscribe();

@@ -12,14 +12,8 @@ export class ScheduleEventService {
     public readonly changes = new Subject();
 
     public async select(from: moment.Moment, to: moment.Moment): Promise<ScheduleEvent[]> {
-        const paramFrom = moment(from || moment())
-            .hour(0)
-            .minute(0)
-            .second(0);
-        const paramTo = moment(to || moment())
-            .hour(23)
-            .minute(59)
-            .second(59);
+        const paramFrom = moment(from || moment()).startOf('day');
+        const paramTo = moment(to || moment()).endOf('day');
         return await httpClient.get(BASE)
             .param(PARAM_FROM, paramFrom.format())
             .param(PARAM_TO, paramTo.format())

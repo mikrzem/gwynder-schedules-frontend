@@ -1,7 +1,9 @@
-import React, {Component, ReactNode} from 'react';
+import React, {ChangeEvent, Component, FormEvent, ReactNode} from 'react';
 import {Link} from 'react-router-dom';
 import {ScheduleEvent} from '../services/data';
 import {eventService} from '../services/service';
+import moment from 'moment';
+import {DateTimeRow} from '../../utils/components/DateTimeRow';
 
 
 export interface EditEventState {
@@ -18,7 +20,7 @@ export class EditEvent extends Component<any, EditEventState> {
         this.state = {
             loading: false,
             event: null
-        }
+        };
     }
 
     public componentDidMount(): void {
@@ -30,12 +32,68 @@ export class EditEvent extends Component<any, EditEventState> {
     private async loadEvent(id: number) {
         this.setState({loading: true});
         try {
-            this.setState({event: await eventService.get(id)})
+            this.setState({event: await eventService.get(id)});
         } catch (e) {
             console.error(e);
         }
         this.setState({loading: false});
     }
+
+    get start() {
+        if (this.state.event) {
+            return moment(this.state.event.StartTime);
+        } else {
+            return null;
+        }
+    }
+
+    public setStart = (date: moment.Moment) => {
+        const event = this.state.event;
+        if (event) {
+            event.StartTime = moment(date).format();
+            this.setState({event: event});
+        }
+    };
+
+    get end() {
+        if (this.state.event) {
+            return moment(this.state.event.EndTime);
+        } else {
+            return null;
+        }
+    }
+
+    public setEnd = (date: moment.Moment) => {
+        const event = this.state.event;
+        if (event) {
+            event.EndTime = moment(date).format();
+            this.setState({event: event});
+        }
+    };
+
+    get title() {
+        if (this.state.event) {
+            return this.state.event.Title;
+        } else {
+            return '';
+        }
+    }
+
+    public setTitle = (title: ChangeEvent<HTMLInputElement>) => {
+        const event = this.state.event;
+        if (event) {
+            event.Title = title.target.value;
+            this.setState({event: event});
+        }
+    };
+
+    public save = async (event: FormEvent) => {
+        event.preventDefault();
+        if (this.state.event) {
+            await eventService.update(this.state.event);
+            window.history.back();
+        }
+    };
 
     public render(): ReactNode {
         return (
@@ -61,7 +119,34 @@ export class EditEvent extends Component<any, EditEventState> {
                             </div>
                         ) : (
                             <div className="card-body">
-
+                                <form onSubmit={this.save}>
+                                    <DateTimeRow title="Start:"
+                                                 value={this.start}
+                                                 onChange={this.setStart}/>
+                                    <DateTimeRow title="End:"
+                                                 value={this.end}
+                                                 onChange={this.setEnd}/>
+                                    <div className="row form-group">
+                                        <label className="col-md-4">
+                                            Title:
+                                        </label>
+                                        <div className="col-md-8">
+                                            <input type="text"
+                                                   className="form-control"
+                                                   value={this.title}
+                                                   onChange={this.setTitle}/>
+                                        </div>
+                                    </div>
+                                    <div className="row form-group">
+                                        <div className="col-md-12">
+                                            <button type="submit"
+                                                    className="btn btn-block btn-primary">
+                                                <span className="fa fa-save"/>
+                                                Save event
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         )
                 }
