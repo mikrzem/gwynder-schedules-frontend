@@ -8,7 +8,10 @@ import {CalendarModule, DropdownModule} from 'primeng/primeng';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {DateSelect} from './common/components/date.select';
+import {DateTimeDisplay} from './common/components/datetime.display';
+import {DateTimeSelect} from './common/components/datetime.select';
 import {UrlService} from './common/services/url';
+import {ScheduledEventService} from './events/services/service';
 import {Error404Page} from './main/error.404';
 import {StartPage} from './main/start.page';
 
@@ -18,6 +21,8 @@ import {StartPage} from './main/start.page';
         Error404Page,
         StartPage,
         DateSelect,
+        DateTimeSelect,
+        DateTimeDisplay,
     ],
     imports: [
         BrowserModule,
@@ -30,6 +35,7 @@ import {StartPage} from './main/start.page';
     ],
     providers: [
         UrlService,
+        ScheduledEventService,
     ],
     bootstrap: [AppComponent]
 })
