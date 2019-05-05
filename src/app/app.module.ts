@@ -11,6 +11,7 @@ import {DateSelect} from './common/components/date.select';
 import {DateTimeDisplay} from './common/components/datetime.display';
 import {DateTimeSelect} from './common/components/datetime.select';
 import {UrlService} from './common/services/url';
+import {EventsListView} from './events/components/view/list';
 import {ScheduledEventService} from './events/services/service';
 import {Error404Page} from './main/error.404';
 import {StartPage} from './main/start.page';
@@ -23,6 +24,7 @@ import {StartPage} from './main/start.page';
         DateSelect,
         DateTimeSelect,
         DateTimeDisplay,
+        EventsListView,
     ],
     imports: [
         BrowserModule,
