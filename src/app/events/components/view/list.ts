@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import * as moment from 'moment';
-import {ScheduledEventHeader} from '../../services/data';
+import {ScheduledEventFilter, ScheduledEventHeader} from '../../services/data';
 import {ScheduledEventService} from '../../services/service';
 
 @Component({
@@ -9,9 +9,10 @@ import {ScheduledEventService} from '../../services/service';
 })
 export class EventsListView implements OnInit {
 
-    public start: string = moment().format('YYYY-MM-DD');
-
-    public end: string = moment().format('YYYY-MM-DD');
+    public filter: ScheduledEventFilter = {
+        from: moment().format('YYYY-MM-DD'),
+        to: moment().format('YYYY-MM-DD')
+    };
 
     public request: Promise<ScheduledEventHeader[]>;
 
@@ -29,8 +30,7 @@ export class EventsListView implements OnInit {
 
     private loadList() {
         this.request = this.service.select(
-            this.start || moment().format('YYYY-MM-DD'),
-            this.end || moment().format('YYYY-MM-DD')
+            this.filter
         );
     }
 }

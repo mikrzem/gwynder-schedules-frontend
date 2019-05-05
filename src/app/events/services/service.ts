@@ -3,7 +3,7 @@ import {Injectable} from '@angular/core';
 import * as moment from 'moment';
 import {BaseDataService} from '../../common/services/service';
 import {UrlService} from '../../common/services/url';
-import {ScheduledEventHeader} from './data';
+import {ScheduledEventFilter, ScheduledEventHeader} from './data';
 
 @Injectable()
 export class ScheduledEventService extends BaseDataService<ScheduledEventHeader> {
@@ -15,12 +15,14 @@ export class ScheduledEventService extends BaseDataService<ScheduledEventHeader>
         super(client, url, 'events');
     }
 
-    public select(from: string, to: string): Promise<ScheduledEventHeader[]> {
-        const fromDateTime = encodeURIComponent(moment(from).startOf('day').format());
-        const toDateTime = encodeURIComponent(moment(to).endOf('day').format());
+    public select(filter: ScheduledEventFilter): Promise<ScheduledEventHeader[]> {
+        const validFilter: ScheduledEventFilter = {
+            from: moment(filter.from || moment().format()).startOf('day').format(),
+            to: moment(filter.to || moment().format()).endOf('day').format()
+        };
+        const filterEncoded = btoa(JSON.stringify(validFilter));
         const params = new HttpParams()
-            .set('from', fromDateTime)
-            .set('to', toDateTime);
+            .set('filter', filterEncoded);
         return this.client.get<ScheduledEventHeader[]>(
             this.url(),
             {params: params}

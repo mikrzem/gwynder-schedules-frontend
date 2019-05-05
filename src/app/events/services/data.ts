@@ -7,3 +7,10 @@ export interface ScheduledEventHeader extends BaseData {
     end: string
 
 }
+
+export interface ScheduledEventFilter {
+
+    from: string;
+    to: string;
+
+}
