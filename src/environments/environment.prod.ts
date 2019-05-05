@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://gwynder.net.pl/api/scheduled/'
+  apiUrl: 'https://gwynder.net.pl/api/schedules/'
 };

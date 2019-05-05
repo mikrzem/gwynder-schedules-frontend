@@ -16,8 +16,12 @@ const routes: Routes = [
                 component: EventsListView
             },
             {
-                path: '**',
+                path: '',
                 pathMatch: 'full',
+                redirectTo: 'list'
+            },
+            {
+                path: '**',
                 redirectTo: 'list'
             },
         ]
