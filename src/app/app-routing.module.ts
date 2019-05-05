@@ -16,14 +16,10 @@ const routes: Routes = [
                 component: EventsListView
             },
             {
-                path: '',
+                path: '**',
                 pathMatch: 'full',
                 redirectTo: 'list'
             },
-            {
-                path: '**',
-                component: Error404Page
-            }
         ]
     },
     {

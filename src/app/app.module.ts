@@ -10,6 +10,7 @@ import {AppComponent} from './app.component';
 import {DateSelect} from './common/components/date.select';
 import {DateTimeDisplay} from './common/components/datetime.display';
 import {DateTimeSelect} from './common/components/datetime.select';
+import {MainPageLink} from './common/components/main.page.link';
 import {UrlService} from './common/services/url';
 import {EventCreate} from './events/components/edit/create';
 import {EventEdit} from './events/components/edit/edit';
@@ -31,6 +32,7 @@ import {StartPage} from './main/start.page';
         EventEdit,
         EventCreate,
         EventUpdate,
+        MainPageLink,
     ],
     imports: [
         BrowserModule,
