@@ -1,0 +1,43 @@
+<form (submit)="save()"
+      *ngIf="event">
+    <div class="card">
+        <div class="card-header">
+            General
+        </div>
+        <div class="card-body">
+            <div class="row form-group">
+                <div class="col-lg-12">
+                    <input type="text"
+                           class="form-control"
+                           required="required"
+                           name="title"
+                           placeholder="Title"
+                           [(ngModel)]="event.title"/>
+                </div>
+            </div>
+            <div class="row form-group">
+                <label class="col-lg-2">
+                    Start
+                </label>
+                <div class="col-lg-4">
+                    <datetime-select [(value)]="event.start">
+                    </datetime-select>
+                </div>
+                <label class="col-lg-2">
+                    End
+                </label>
+                <div class="col-lg-4">
+                    <datetime-select [(value)]="event.end">
+                    </datetime-select>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="submit"
+                    class="btn btn-primary btn-block">
+                <span class="fa fa-save"></span>
+                Save event
+            </button>
+        </div>
+    </div>
+</form>

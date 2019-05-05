@@ -3,7 +3,7 @@ import * as moment from 'moment';
 
 @Component({
     selector: 'datetime-select',
-    template: '<p-calendar [(ngModel)]="current" showTime="true" hourFormat="24" dateFormat="yy-mm-dd"></p-calendar>'
+    template: '<p-calendar [(ngModel)]="current" showTime="true" hourFormat="24" dateFormat="yy-mm-dd" required="true"></p-calendar>'
 })
 export class DateTimeSelect {
 

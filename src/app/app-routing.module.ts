@@ -1,5 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
+import {EventCreate} from './events/components/edit/create';
+import {EventUpdate} from './events/components/edit/update';
 import {EventsListView} from './events/components/view/list';
 import {Error404Page} from './main/error.404';
 import {StartPage} from './main/start.page';
@@ -23,6 +25,14 @@ const routes: Routes = [
                 component: Error404Page
             }
         ]
+    },
+    {
+        path: 'event/create',
+        component: EventCreate
+    },
+    {
+        path: 'event/update/:id',
+        component: EventUpdate
     },
     {
         path: '',

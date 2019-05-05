@@ -1,0 +1,20 @@
+<div class="card card-full-height">
+    <div class="card-header">
+        <h4 class="card-title">Editing event</h4>
+    </div>
+    <div class="alert alert-success"
+         *ngIf="saved">
+        Event saved successfully
+    </div>
+    <div class="card-body">
+        <div *ngIf="(request | async) as event; else loading">
+            <event-edit [event]="event"></event-edit>
+        </div>
+        <ng-template #loading>
+            <div class="alert alert-info">
+                <span class="fa fa-spin fa-spinner"></span>
+                Loading...
+            </div>
+        </ng-template>
+    </div>
+</div>

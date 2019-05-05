@@ -28,6 +28,6 @@
     height: 100%;
 }
 
-.card-full-height .card-body {
+.card-full-height > .card-body {
     overflow-y: auto;
 }
